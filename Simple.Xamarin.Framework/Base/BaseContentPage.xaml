@@ -1,0 +1,91 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:Simple.Xamarin.Framework"
+             xmlns:base="clr-namespace:Simple.Xamarin.Framework.Components"
+             x:Class="Simple.Xamarin.Framework.Base.BaseContentPage"
+             ControlTemplate="{StaticResource BaseContentPageTemplate}"
+             >
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <ControlTemplate x:Key="BaseContentPageTemplate">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+
+                    <base:NavigationBar Grid.Row="0"
+                                        IsVisible="{TemplateBinding BindingContext.ShowNavigationBar}"
+                                        BackgroundColor="{StaticResource MainDarkColor}"
+                                        Title="{TemplateBinding BindingContext.PageTitle}"
+                                        LeftButtonTitle="{TemplateBinding BindingContext.LeftButtonTitle}"
+                                        LeftButtonCommand="{TemplateBinding BindingContext.LeftButtonCommand}"
+                                        RightButtonTitle="{TemplateBinding BindingContext.RightButtonTitle}"
+                                        RightButtonCommand="{TemplateBinding BindingContext.RightButtonCommand}"
+                                        />
+                    <Grid Grid.Row="1">
+                        <ContentPresenter />
+                    </Grid>
+
+                    <Grid Grid.Row="2"
+                          IsVisible="{TemplateBinding BindingContext.ShowToolBar}"
+                          >
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <Button Grid.Column="0" 
+                                Text="1" />
+                        <Button Grid.Column="1" 
+                                Text="2"
+                                />
+                        <Button Grid.Column="2" 
+                                Text="3"
+                                />
+                    </Grid>
+
+                    <!--#region ActivityIndicator -->
+                    <Grid BackgroundColor="White"
+                          Grid.RowSpan="3"
+                          IsVisible="{TemplateBinding BindingContext.DisplayActivityIndicator}"
+                          >
+                        <StackLayout HorizontalOptions="CenterAndExpand"
+                                     VerticalOptions="CenterAndExpand">
+                            <ActivityIndicator Color="{StaticResource MainColor}"
+                                               IsRunning="True"/>
+                            <Label Text="{TemplateBinding BindingContext.ActivityIndicatorText}"
+                                   />
+
+                        </StackLayout>
+                    </Grid>
+                    <!--#endregion-->
+                    
+                    <!--#region ProgressBar -->
+                    <Grid BackgroundColor="White"
+                          Grid.Row="1"
+                          Grid.RowSpan="2"
+                          Opacity="0.7"
+                          IsVisible="{TemplateBinding BindingContext.DisplayProgressBar}"
+                          >
+                        <StackLayout HorizontalOptions="CenterAndExpand"
+                                     VerticalOptions="CenterAndExpand"
+                                     Opacity="1">
+                            <ProgressBar HeightRequest="40" Progress="0.5" Opacity="1"/>
+                            <Label Text="{TemplateBinding BindingContext.ProgressBarText}" Opacity="1"
+                                   />
+                            <Button Text="Cancel" Opacity="1"
+                                    />
+
+                        </StackLayout>
+                    </Grid>
+                    <!--#endregion-->
+                    
+                </Grid>
+            </ControlTemplate>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+</ContentPage>
