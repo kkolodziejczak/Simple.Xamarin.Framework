@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Simple.Xamarin.Framework.core;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -8,7 +9,7 @@ using System.Threading.Tasks;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
-namespace Simple.Xamarin.Framework.Base
+namespace Simple.Xamarin.Framework
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class BaseContentPage : ContentPage

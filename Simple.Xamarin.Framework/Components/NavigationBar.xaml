@@ -1,19 +1,20 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="Simple.Xamarin.Framework.Components.NavigationBar">
-    <Grid>
+             x:Class="Simple.Xamarin.Framework.Components.NavigationBar"
+             >
+    <Grid BackgroundColor="{Binding Parent.BackgroundColor}">
         <Grid.Resources>
             <ResourceDictionary>
                 <Style TargetType="Button">
                     <Setter Property="BackgroundColor" Value="Transparent"/>
                     <Setter Property="BorderWidth" Value="0"/>
-                    <Setter Property="TextColor" Value="{StaticResource IconText}"/>
+                    <Setter Property="TextColor" Value="{DynamicResource IconText}"/>
                     <Setter Property="HorizontalOptions" Value="Center"/>
                     <Setter Property="VerticalOptions" Value="Center"/>
                 </Style>
                 <Style TargetType="Label">
-                    <Setter Property="TextColor" Value="{StaticResource IconText}"/>
+                    <Setter Property="TextColor" Value="{DynamicResource IconText}"/>
                     <Setter Property="HorizontalOptions" Value="Center"/>
                     <Setter Property="VerticalOptions" Value="Center"/>
                 </Style>
@@ -28,7 +29,6 @@
         <Button Grid.Column="0"
                 Text="{Binding LeftButtonTitle}"
                 Command="{Binding LeftButtonCommand}"
-                
                 />
 
         <Label Grid.Column="1" 

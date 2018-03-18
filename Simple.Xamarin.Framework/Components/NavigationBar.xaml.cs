@@ -10,7 +10,6 @@ namespace Simple.Xamarin.Framework.Components
         public NavigationBar()
         {
             InitializeComponent();
-            BindingContext = this;
         }
 
         public static readonly BindableProperty TitleProperty =
