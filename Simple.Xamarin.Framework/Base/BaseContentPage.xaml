@@ -12,6 +12,7 @@
                 <Grid BackgroundColor="{Binding Parent.BackgroundColor}">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
                         <RowDefinition Height="*"/>
                         <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
@@ -19,21 +20,37 @@
                     <!--  NavigationBar -->
                     <base:NavigationBar Grid.Row="0"
                                         BindingContext="{TemplateBinding BindingContext.NavigationBar}"
-                                        IsVisible="{TemplateBinding BindingContext.NavigationBar.Show}"
-                                        BackgroundColor="{DynamicResource MainDarkColor}"
+                                        IsVisible="{Binding IsVisible}"
+                                        BackgroundColor="{TemplateBinding NavigationBarBackgroundColor}"
                                         />
 
+                    <!-- Bottom ToolBar -->
+                    <local:ToolBar Grid.Row="1"
+                                   BindingContext="{TemplateBinding BindingContext.UpperToolBar}"
+                                   IsVisible="{Binding IsVisible}"
+                                   ItemsSource="{Binding Items}"
+                                   BackgroundColor="{TemplateBinding UpperToolBarBackgroundColor}"
+                                   >
+                        <local:ToolBar.ItemTemplate>
+                            <DataTemplate>
+                                <Button Text="{Binding Title}"
+                                    FontFamily="{Binding FontFamily}"
+                                    Command="{Binding Command}"/>
+                            </DataTemplate>
+                        </local:ToolBar.ItemTemplate>
+                    </local:ToolBar>
+                    
                     <!-- Content Presenter -->
-                    <Grid Grid.Row="1">
+                    <Grid Grid.Row="2">
                         <ContentPresenter />
                     </Grid>
                     
                     <!-- Bottom ToolBar -->
-                    <local:ToolBar Grid.Row="2"
-                                BindingContext="{TemplateBinding BindingContext.ToolBar}"
-                                IsVisible="{TemplateBinding BindingContext.ToolBar.Show}"
+                    <local:ToolBar Grid.Row="3"
+                                BindingContext="{TemplateBinding BindingContext.BottomToolBar}"
+                                IsVisible="{Binding IsVisible}"
                                 ItemsSource="{Binding Items}"
-                                BackgroundColor="{DynamicResource MainDarkColor}"
+                                BackgroundColor="{TemplateBinding BottomToolBarBackgroundColor}"
                                 >
                         <local:ToolBar.ItemTemplate>
                             <DataTemplate>
@@ -46,7 +63,7 @@
 
                     <!--#region ProgressBar-->
                     <Grid Grid.Row="1"
-                        Grid.RowSpan="2"
+                        Grid.RowSpan="3"
                         IsVisible="{TemplateBinding BindingContext.DisplayProgressBar}"
                         >
                         <!-- Background -->
@@ -69,7 +86,7 @@
 
                     <!--#region ActivityIndicator-->
                     <Grid BackgroundColor="White"
-                        Grid.RowSpan="3"
+                        Grid.RowSpan="4"
                         IsVisible="{TemplateBinding BindingContext.DisplayActivityIndicator}"
                         >
                         <StackLayout HorizontalOptions="CenterAndExpand"

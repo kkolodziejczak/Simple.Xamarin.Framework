@@ -12,16 +12,17 @@ namespace Simple.Xamarin.Framework.core
     public class ToolBarViewModel : BaseViewModel
     {
 
-        private static bool _show;
+        private static bool _isVisible;
+
         /// <summary>
         /// Indicates if ToolBar is shown
         /// </summary>
-        public bool Show
+        public bool IsVisible
         {
-            get => _show;
+            get => _isVisible;
             set
             {
-                _show = value;
+                _isVisible = value;
                 OnPropertyChanged();
             }
         }
@@ -50,6 +51,23 @@ namespace Simple.Xamarin.Framework.core
 
             return this;
         }
+
+        /// <summary>
+        /// Shows ToolBar
+        /// </summary>
+        public void Show()
+        {
+            IsVisible = true;
+        }
+
+        /// <summary>
+        /// Hides ToolBar
+        /// </summary>
+        public void Hide()
+        {
+            IsVisible = false;
+        }
+
     }
 
     /// <summary>

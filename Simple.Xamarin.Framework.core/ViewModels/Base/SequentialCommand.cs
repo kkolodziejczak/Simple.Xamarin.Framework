@@ -23,6 +23,11 @@ namespace Simple.Xamarin.Framework.core
         private Action _job;
 
         /// <summary>
+        /// Key that allows to override restrictions
+        /// </summary>
+        private bool _rightToRunAlways;
+
+        /// <summary>
         /// A semaphore to lock the semaphore list
         /// </summary>
         private static SemaphoreSlim SelfLock = new SemaphoreSlim(1, 1);
@@ -32,21 +37,19 @@ namespace Simple.Xamarin.Framework.core
         /// </summary>
         public event EventHandler CanExecuteChanged = (s,e) => { };
 
-        public SequentialCommand(Func<Task> job)
+        public SequentialCommand(Func<Task> job, bool runAlways = false)
         {
             _funcJob = job;
+            _rightToRunAlways = runAlways;
         }
 
-        public SequentialCommand(Action job)
+        public SequentialCommand(Action job, bool runAlways = false)
         {
             _job = job;
+            _rightToRunAlways = runAlways;
         }
 
-        public bool CanExecute(object parameter)
-        {
-            // Always execute
-            return true;
-        }
+        public bool CanExecute(object parameter) => true;
 
         /// <summary>
         /// Execute only one task at the time
@@ -54,26 +57,43 @@ namespace Simple.Xamarin.Framework.core
         /// <param name="parameter"></param>
         public async void Execute(object parameter)
         {
-            // If Job is already running return
-            if (SelfLock.CurrentCount == 0)
-                return;
-
-            // Lock semaphore
-            await SelfLock.WaitAsync();
-
-            try
+            if(_rightToRunAlways == true)
             {
-                // Perform the job
-                if(_job != null)
-                    _job();
-                else
-                    await _funcJob();
+                await DoTheJob();
             }
-            finally
+            else
             {
-                // Release the semaphore
-                SelfLock.Release();
+                // Check if Job is already running
+                if (SelfLock.CurrentCount == 0)
+                    // if so then return
+                    return;
+
+                // else lock semaphore
+                await SelfLock.WaitAsync();
+
+                try
+                {
+                    // and do the job
+                    await DoTheJob();
+                }
+                finally
+                {
+                    // Release the semaphore
+                    SelfLock.Release();
+                }
             }
+        }
+
+        /// <summary>
+        /// Perform the job of the command
+        /// </summary>
+        /// <returns></returns>
+        private async Task DoTheJob()
+        {
+            if (_job != null)
+                _job();
+            else
+                await _funcJob();
         }
     }
 

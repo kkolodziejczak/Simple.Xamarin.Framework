@@ -1,4 +1,5 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Runtime.CompilerServices;
@@ -22,7 +23,12 @@ namespace Simple.Xamarin.Framework.core
         /// <summary>
         /// ViewModel that represents how BottomToolbar will be displayed on this page
         /// </summary>
-        public ToolBarViewModel ToolBar { get; set; }
+        public ToolBarViewModel BottomToolBar { get; set; }
+
+        /// <summary>
+        /// ViewModel that represents how BottomToolbar will be displayed on this page
+        /// </summary>
+        public ToolBarViewModel UpperToolBar { get; set; }
 
         /// <summary>
         /// Base Constructor
@@ -31,38 +37,55 @@ namespace Simple.Xamarin.Framework.core
         {
             NavigationBar = new NavigationBarViewModel
             {
-                Show = true,
+                IsVisible = true,
                 Title = "Simple Test1",
                 LeftButtonTitle = "Left2",
                 RightButtonTitle = "Right1",
-                LeftButtonCommand = new SequentialCommand(()=>TestLeftButton()),
+                LeftButtonCommand = new SequentialCommand((Action)TestLeftButton),
                 RightButtonCommand = new SequentialCommand(TestRightButton),
             };
 
-            ToolBar = new ToolBarViewModel()
+            BottomToolBar = new ToolBarViewModel()
                 .AddItem("1", new SequentialCommand(() => { Debug.WriteLine("Hello 1."); }))
                 .AddItem("2", new SequentialCommand(() => { Debug.WriteLine("Hello 2."); }))
                 .AddItem("3", new SequentialCommand(() => { Debug.WriteLine("Hello 3."); }))
                 .AddItem("4", new SequentialCommand(() => { Debug.WriteLine("Hello 4."); }));
-                    
+
+            UpperToolBar = new ToolBarViewModel()
+                .AddItem("Upper", new SequentialCommand(() => 
+                {
+                    if (NavigationBar.IsVisible)
+                        NavigationBar.Hide();
+                    else
+                        NavigationBar.Show();
+                }))
+                .AddItem("Upper2", new SequentialCommand(() => 
+                {
+                    if (BottomToolBar.IsVisible)
+                        BottomToolBar.Hide();
+                    else
+                        BottomToolBar.Show();
+                }));
         }
 
         public void TestLeftButton()
         {
-            ToolBar.Show = !ToolBar.Show;
-            OnPropertyChanged(nameof(ToolBar));
+            if(UpperToolBar.IsVisible)
+                UpperToolBar.Hide();
+            else
+                UpperToolBar.Show();
         }
 
         public async Task TestRightButton()
         {
             ShowProgressBar("Downloading...\nPlease Wait!");
-            await Task.Delay(5 * 1000);
+            await Task.Delay(7 * 1000);
             ShowActivityIndicator("Please Wait!");
             HideProgressBar();
-            await Task.Delay(2 * 1000);
+            await Task.Delay(5 * 1000);
             HideActivityIndicator();
         }
-        
+
         /// <summary>
         /// Blocks UI clicks
         /// </summary>

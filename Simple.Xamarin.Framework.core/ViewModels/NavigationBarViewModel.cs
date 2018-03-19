@@ -4,17 +4,17 @@ namespace Simple.Xamarin.Framework.core
 {
     public class NavigationBarViewModel : BaseViewModel
     {
-        private static bool _show;
+        private static bool _isVisible;
 
         /// <summary>
-        /// Indicates if ToolBar is shown
+        /// Indicates if NavigationBar is shown
         /// </summary>
-        public bool Show
+        public bool IsVisible
         {
-            get => _show;
+            get => _isVisible;
             set
             {
-                _show = value;
+                _isVisible = value;
                 OnPropertyChanged();
             }
         }
@@ -43,5 +43,21 @@ namespace Simple.Xamarin.Framework.core
         /// Command that will be executed when right button is pressed
         /// </summary>
         public ICommand RightButtonCommand { get; set; }
+
+        /// <summary>
+        /// Shows NavigationBar
+        /// </summary>
+        public void Show()
+        {
+            IsVisible = true;
+        }
+
+        /// <summary>
+        /// Hides NavigationBar
+        /// </summary>
+        public void Hide()
+        {
+            IsVisible = false;
+        }
     }
 }
