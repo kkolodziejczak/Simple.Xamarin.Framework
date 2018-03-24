@@ -37,28 +37,28 @@ namespace Simple.Xamarin.Framework.core
         {
             NavigationBar = new NavigationBarViewModel
             {
-                Title = "Simple Test1",
-                LeftButtonTitle = "Left2",
-                RightButtonTitle = "Right1",
+                Title = "Sample Title",
+                LeftButtonTitle = "Left",
+                RightButtonTitle = "Right",
                 LeftButtonCommand = new SequentialCommand((Action)TestLeftButton),
                 RightButtonCommand = new SequentialCommand(TestRightButton),
             };
 
             BottomToolBar = new ToolBarViewModel()
-                .AddItem("1", new SequentialCommand(() => { Debug.WriteLine("Hello 1."); }))
-                .AddItem("2", new SequentialCommand(() => { Debug.WriteLine("Hello 2."); }))
-                .AddItem("3", new SequentialCommand(() => { Debug.WriteLine("Hello 3."); }))
-                .AddItem("4", new SequentialCommand(() => { Debug.WriteLine("Hello 4."); }));
+                .AddItem("Bottom 1", new SequentialCommand(() => { Debug.WriteLine("Hello 1."); }))
+                .AddItem("Bottom 2", new SequentialCommand(() => { Debug.WriteLine("Hello 2."); }))
+                .AddItem("Bottom 3", new SequentialCommand(() => { Debug.WriteLine("Hello 3."); }))
+                .AddItem("Bottom 4", new SequentialCommand(() => { Debug.WriteLine("Hello 4."); }));
 
             UpperToolBar = new ToolBarViewModel()
-                .AddItem("Upper", new SequentialCommand(() => 
+                .AddItem("Upper 1", new SequentialCommand(() => 
                 {
                     if (NavigationBar.IsVisible)
                         NavigationBar.Hide();
                     else
                         NavigationBar.Show();
                 }))
-                .AddItem("Upper2", new SequentialCommand(() => 
+                .AddItem("Upper 2", new SequentialCommand(() => 
                 {
                 }));
         }

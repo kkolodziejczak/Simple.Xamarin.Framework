@@ -19,7 +19,6 @@ namespace Simple.Xamarin.Framework
               returnType: typeof(IEnumerable),
               declaringType: typeof(ToolBar),
               defaultValue: null,
-              defaultBindingMode: BindingMode.TwoWay,
               propertyChanged: ItemsChanged
             );
 
