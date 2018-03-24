@@ -18,9 +18,19 @@ namespace Simple.Xamarin.Framework.core
         private Func<Task> _funcJob;
 
         /// <summary>
+        /// Function to execute with parameter
+        /// </summary>
+        private Func<object, Task> _funcJobWithParam;
+
+        /// <summary>
         /// Action to execute
         /// </summary>
         private Action _job;
+
+        /// <summary>
+        /// Action to execute with parameter
+        /// </summary>
+        private Action<object> _jobWithParam;
 
         /// <summary>
         /// Key that allows to override restrictions
@@ -35,7 +45,7 @@ namespace Simple.Xamarin.Framework.core
         /// <summary>
         /// Occurs when changes occur that affect whether or not the command should execute.
         /// </summary>
-        public event EventHandler CanExecuteChanged = (s,e) => { };
+        public event EventHandler CanExecuteChanged = (s, e) => { };
 
         public SequentialCommand(Func<Task> job, bool runAlways = false)
         {
@@ -43,9 +53,21 @@ namespace Simple.Xamarin.Framework.core
             _rightToRunAlways = runAlways;
         }
 
+        public SequentialCommand(Func<object, Task> job, bool runAlways = false)
+        {
+            _funcJobWithParam = job;
+            _rightToRunAlways = runAlways;
+        }
+
         public SequentialCommand(Action job, bool runAlways = false)
         {
             _job = job;
+            _rightToRunAlways = runAlways;
+        }
+
+        public SequentialCommand(Action<object> job, bool runAlways = false)
+        {
+            _jobWithParam = job;
             _rightToRunAlways = runAlways;
         }
 
@@ -57,9 +79,9 @@ namespace Simple.Xamarin.Framework.core
         /// <param name="parameter"></param>
         public async void Execute(object parameter)
         {
-            if(_rightToRunAlways == true)
+            if (_rightToRunAlways == true)
             {
-                await DoTheJob();
+                await DoTheJob(parameter);
             }
             else
             {
@@ -74,7 +96,7 @@ namespace Simple.Xamarin.Framework.core
                 try
                 {
                     // and do the job
-                    await DoTheJob();
+                    await DoTheJob(parameter);
                 }
                 finally
                 {
@@ -88,12 +110,14 @@ namespace Simple.Xamarin.Framework.core
         /// Perform the job of the command
         /// </summary>
         /// <returns></returns>
-        private async Task DoTheJob()
+        private async Task DoTheJob(object parameter)
         {
-            if (_job != null)
-                _job();
-            else
+            _job?.Invoke();
+            _jobWithParam?.Invoke(parameter);
+            if (_funcJob != null)
                 await _funcJob();
+            if (_funcJobWithParam != null)
+                await _funcJobWithParam(parameter);
         }
     }
 

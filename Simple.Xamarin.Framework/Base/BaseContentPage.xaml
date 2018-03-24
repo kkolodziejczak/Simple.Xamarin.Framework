@@ -24,11 +24,11 @@
                                         BackgroundColor="{TemplateBinding NavigationBarBackgroundColor}"
                                         />
 
-                    <!-- Bottom ToolBar -->
+                    <!-- Upper ToolBar -->
                     <local:ToolBar Grid.Row="1"
                                    BindingContext="{TemplateBinding BindingContext.UpperToolBar}"
-                                   IsVisible="{Binding IsVisible}"
                                    ItemsSource="{Binding Items}"
+                                   IsVisible="{Binding IsVisible}"
                                    BackgroundColor="{TemplateBinding UpperToolBarBackgroundColor}"
                                    >
                         <local:ToolBar.ItemTemplate>
@@ -39,7 +39,7 @@
                             </DataTemplate>
                         </local:ToolBar.ItemTemplate>
                     </local:ToolBar>
-                    
+
                     <!-- Content Presenter -->
                     <Grid Grid.Row="2">
                         <ContentPresenter />
@@ -47,11 +47,11 @@
                     
                     <!-- Bottom ToolBar -->
                     <local:ToolBar Grid.Row="3"
-                                BindingContext="{TemplateBinding BindingContext.BottomToolBar}"
-                                IsVisible="{Binding IsVisible}"
-                                ItemsSource="{Binding Items}"
-                                BackgroundColor="{TemplateBinding BottomToolBarBackgroundColor}"
-                                >
+                                   BindingContext="{TemplateBinding BindingContext.BottomToolBar}"
+                                   IsVisible="{Binding IsVisible}"
+                                   ItemsSource="{Binding Items}"
+                                   BackgroundColor="{TemplateBinding BottomToolBarBackgroundColor}"
+                                   >
                         <local:ToolBar.ItemTemplate>
                             <DataTemplate>
                                 <Button Text="{Binding Title}"
@@ -68,18 +68,18 @@
                         >
                         <!-- Background -->
                         <Grid BackgroundColor="White"
-                            Opacity="0.7"/>
+                              Opacity="0.7"/>
                         <!-- ProgressBar elements -->
                         <StackLayout HorizontalOptions="CenterAndExpand"
-                                    VerticalOptions="CenterAndExpand"
-                                    >
+                                     VerticalOptions="CenterAndExpand"
+                                     >
                             <ProgressBar HeightRequest="40" 
-                                    Progress="0.5"
-                                    />
+                                         Progress="0.5"
+                                         />
                             <Label Text="{TemplateBinding BindingContext.ProgressBarText}"
-                                />
+                                    />
                             <Button Text="Cancel"
-                                />
+                                    />
                         </StackLayout>
                     </Grid>
                     <!--#endregion-->

@@ -37,7 +37,6 @@ namespace Simple.Xamarin.Framework.core
         {
             NavigationBar = new NavigationBarViewModel
             {
-                IsVisible = true,
                 Title = "Simple Test1",
                 LeftButtonTitle = "Left2",
                 RightButtonTitle = "Right1",
@@ -61,22 +60,18 @@ namespace Simple.Xamarin.Framework.core
                 }))
                 .AddItem("Upper2", new SequentialCommand(() => 
                 {
-                    if (BottomToolBar.IsVisible)
-                        BottomToolBar.Hide();
-                    else
-                        BottomToolBar.Show();
                 }));
         }
 
         public void TestLeftButton()
         {
-            if(UpperToolBar.IsVisible)
+            if (UpperToolBar.IsVisible)
                 UpperToolBar.Hide();
             else
                 UpperToolBar.Show();
         }
 
-        public async Task TestRightButton()
+        public async Task TestRightButton(object param)
         {
             ShowProgressBar("Downloading...\nPlease Wait!");
             await Task.Delay(7 * 1000);

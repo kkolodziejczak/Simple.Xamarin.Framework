@@ -7,25 +7,10 @@ using System.Windows.Input;
 namespace Simple.Xamarin.Framework.core
 {
     /// <summary>
-    /// 
+    /// ViewModel that represents How ToolBar will be displayed
     /// </summary>
-    public class ToolBarViewModel : BaseViewModel
+    public class ToolBarViewModel : ViewComponentViewModel
     {
-
-        private static bool _isVisible;
-
-        /// <summary>
-        /// Indicates if ToolBar is shown
-        /// </summary>
-        public bool IsVisible
-        {
-            get => _isVisible;
-            set
-            {
-                _isVisible = value;
-                OnPropertyChanged();
-            }
-        }
 
         /// <summary>
         /// ToolBar's Items
@@ -50,22 +35,6 @@ namespace Simple.Xamarin.Framework.core
             });
 
             return this;
-        }
-
-        /// <summary>
-        /// Shows ToolBar
-        /// </summary>
-        public void Show()
-        {
-            IsVisible = true;
-        }
-
-        /// <summary>
-        /// Hides ToolBar
-        /// </summary>
-        public void Hide()
-        {
-            IsVisible = false;
         }
 
     }

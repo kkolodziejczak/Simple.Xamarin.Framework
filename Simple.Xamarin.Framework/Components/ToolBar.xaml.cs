@@ -19,7 +19,7 @@ namespace Simple.Xamarin.Framework
               returnType: typeof(IEnumerable),
               declaringType: typeof(ToolBar),
               defaultValue: null,
-              defaultBindingMode: BindingMode.OneWay,
+              defaultBindingMode: BindingMode.TwoWay,
               propertyChanged: ItemsChanged
             );
 
@@ -72,6 +72,8 @@ namespace Simple.Xamarin.Framework
 
         private View CreateChildViewFor(object item)
         {
+            if (ItemTemplate == null)
+                return null;
             ItemTemplate.SetValue(BindingContextProperty, item);
             return (View)ItemTemplate.CreateContent();
         }

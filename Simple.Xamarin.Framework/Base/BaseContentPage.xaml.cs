@@ -14,6 +14,12 @@ namespace Simple.Xamarin.Framework
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class BaseContentPage : ContentPage
     {
+        public BaseContentPage()
+        {
+            InitializeComponent();
+            BindingContext = this;
+        }
+
         public static readonly BindableProperty NavigationBarBackgroundColorProperty =
             BindableProperty.Create("NavigationBarBackgroundColor", typeof(Color), typeof(BaseContentPage), default(Color));
 
@@ -50,11 +56,24 @@ namespace Simple.Xamarin.Framework
             set => SetValue(UpperToolBarBackgroundColorProperty, value);
         }
 
-        public BaseContentPage()
+        public static readonly BindableProperty UpperToolBarItemTemplateProperty = BindableProperty.Create(
+            "UpperToolBarItemTemplate", typeof(DataTemplate), typeof(BaseContentPage), default(DataTemplate));
+
+        public DataTemplate UpperToolBarItemTemplate
         {
-            InitializeComponent();
-            BindingContext = this;
+            get => (DataTemplate)GetValue(UpperToolBarItemTemplateProperty);
+            set => SetValue(UpperToolBarItemTemplateProperty, value);
         }
+
+        public static readonly BindableProperty BottomToolBarItemTemplateProperty = BindableProperty.Create(
+            "BottomToolBarItemTemplate", typeof(DataTemplate), typeof(BaseContentPage), default(DataTemplate));
+
+        public DataTemplate BottomToolBarItemTemplate
+        {
+            get { return (DataTemplate)GetValue(BottomToolBarItemTemplateProperty); }
+            set { SetValue(BottomToolBarItemTemplateProperty, value); }
+        }
+
 
         protected override bool OnBackButtonPressed()
         {
