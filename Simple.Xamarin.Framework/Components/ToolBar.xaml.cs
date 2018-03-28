@@ -111,12 +111,26 @@ namespace Simple.Xamarin.Framework
               propertyName: "ItemTemplate",
               returnType: typeof(DataTemplate),
               declaringType: typeof(ToolBar),
-              defaultValue: default(DataTemplate)
+              defaultValue: default(DataTemplate),
+              propertyChanged: OnChange
             );
+
+        private static void OnChange(BindableObject bindable, object oldValue, object newValue)
+        {
+            var control = (ToolBar)bindable;
+            ItemsTemplate = newValue as DataTemplate;
+            control.ItemTemplate = newValue as DataTemplate;
+        }
+
+        public static DataTemplate ItemsTemplate;
 
         public DataTemplate ItemTemplate
         {
-            get { return (DataTemplate)GetValue(ItemTemplateProperty); }
+            get
+            {
+                return ItemsTemplate;
+                return (DataTemplate)GetValue(ItemTemplateProperty);
+            }
             set { SetValue(ItemTemplateProperty, value); }
         }
     }

@@ -9,9 +9,8 @@ namespace Simple.Xamarin.Framework.core
     /// <summary>
     /// ViewModel that represents How ToolBar will be displayed
     /// </summary>
-    public class ToolBarViewModel : ViewComponentViewModel
+    public class ToolBarViewModel : BaseComponentViewModel
     {
-
         /// <summary>
         /// ToolBar's Items
         /// </summary>

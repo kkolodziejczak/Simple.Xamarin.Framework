@@ -44,6 +44,19 @@ namespace Simple.Xamarin.Framework
             set => SetValue(BottomToolBarBackgroundColorProperty, value);
         }
 
+        public static readonly BindableProperty BottomToolBarContentProperty = BindableProperty.Create(
+            "BottomToolBarContent", typeof(View), typeof(BaseContentPage), default(View));
+
+        /// <summary>
+        /// Content to display at bottom ToolBar
+        /// </summary>
+        public View BottomToolBarContent
+        {
+            get => (View)GetValue(BottomToolBarContentProperty);
+            set => SetValue(BottomToolBarContentProperty, value);
+        }
+
+
         public static readonly BindableProperty UpperToolBarBackgroundColorProperty =
             BindableProperty.Create("UpperToolBarBackgroundColor", typeof(Color), typeof(BaseContentPage), default(Color));
 
@@ -56,24 +69,17 @@ namespace Simple.Xamarin.Framework
             set => SetValue(UpperToolBarBackgroundColorProperty, value);
         }
 
-        public static readonly BindableProperty UpperToolBarItemTemplateProperty = BindableProperty.Create(
-            "UpperToolBarItemTemplate", typeof(DataTemplate), typeof(BaseContentPage), default(DataTemplate));
+        public static readonly BindableProperty UpperToolBarContentProperty = BindableProperty.Create(
+            "UpperToolBarContent", typeof(View), typeof(BaseContentPage), default(View));
 
-        public DataTemplate UpperToolBarItemTemplate
+        /// <summary>
+        /// Content to display at upper ToolBar
+        /// </summary>
+        public View UpperToolBarContent
         {
-            get => (DataTemplate)GetValue(UpperToolBarItemTemplateProperty);
-            set => SetValue(UpperToolBarItemTemplateProperty, value);
+            get => (View)GetValue(UpperToolBarContentProperty);
+            set => SetValue(UpperToolBarContentProperty, value);
         }
-
-        public static readonly BindableProperty BottomToolBarItemTemplateProperty = BindableProperty.Create(
-            "BottomToolBarItemTemplate", typeof(DataTemplate), typeof(BaseContentPage), default(DataTemplate));
-
-        public DataTemplate BottomToolBarItemTemplate
-        {
-            get { return (DataTemplate)GetValue(BottomToolBarItemTemplateProperty); }
-            set { SetValue(BottomToolBarItemTemplateProperty, value); }
-        }
-
 
         protected override bool OnBackButtonPressed()
         {

@@ -8,7 +8,7 @@
                 <Style TargetType="Button">
                     <Setter Property="BackgroundColor" Value="Transparent"/>
                     <Setter Property="BorderWidth" Value="0"/>
-                    <Setter Property="TextColor" Value="{DynamicResource IconText}"/>
+                    <Setter Property="TextColor" Value="{DynamicResource Simple_Xamarin_Framework_IconText}"/>
                     <Setter Property="HorizontalOptions" Value="Center"/>
                     <Setter Property="VerticalOptions" Value="Center"/>
                 </Style>

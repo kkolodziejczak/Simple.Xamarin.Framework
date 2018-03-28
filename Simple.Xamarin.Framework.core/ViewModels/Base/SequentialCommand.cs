@@ -23,16 +23,6 @@ namespace Simple.Xamarin.Framework.core
         private Func<object, Task> _funcJobWithParam;
 
         /// <summary>
-        /// Action to execute
-        /// </summary>
-        private Action _job;
-
-        /// <summary>
-        /// Action to execute with parameter
-        /// </summary>
-        private Action<object> _jobWithParam;
-
-        /// <summary>
         /// Key that allows to override restrictions
         /// </summary>
         private bool _rightToRunAlways;
@@ -56,18 +46,6 @@ namespace Simple.Xamarin.Framework.core
         public SequentialCommand(Func<object, Task> job, bool runAlways = false)
         {
             _funcJobWithParam = job;
-            _rightToRunAlways = runAlways;
-        }
-
-        public SequentialCommand(Action job, bool runAlways = false)
-        {
-            _job = job;
-            _rightToRunAlways = runAlways;
-        }
-
-        public SequentialCommand(Action<object> job, bool runAlways = false)
-        {
-            _jobWithParam = job;
             _rightToRunAlways = runAlways;
         }
 
@@ -112,8 +90,6 @@ namespace Simple.Xamarin.Framework.core
         /// <returns></returns>
         private async Task DoTheJob(object parameter)
         {
-            _job?.Invoke();
-            _jobWithParam?.Invoke(parameter);
             if (_funcJob != null)
                 await _funcJob();
             if (_funcJobWithParam != null)

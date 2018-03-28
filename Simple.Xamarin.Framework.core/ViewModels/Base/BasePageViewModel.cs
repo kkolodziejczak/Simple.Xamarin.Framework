@@ -10,7 +10,7 @@ namespace Simple.Xamarin.Framework.core
     /// <summary>
     /// Base ViewModel to all Content Pages
     /// </summary>
-    public class BasePageViewModel : BaseViewModel
+    public abstract class BasePageViewModel : BaseViewModel
     {
         private static bool _BackButtonBlocked;
         private static bool _UIBlocked;
@@ -23,63 +23,48 @@ namespace Simple.Xamarin.Framework.core
         /// <summary>
         /// ViewModel that represents how BottomToolbar will be displayed on this page
         /// </summary>
-        public ToolBarViewModel BottomToolBar { get; set; }
+        public BaseComponentViewModel BottomToolBar { get; set; }
 
         /// <summary>
-        /// ViewModel that represents how BottomToolbar will be displayed on this page
+        /// ViewModel that represents how UpperToolbar will be displayed on this page
         /// </summary>
-        public ToolBarViewModel UpperToolBar { get; set; }
+        public BaseComponentViewModel UpperToolBar { get; set; }
 
         /// <summary>
         /// Base Constructor
         /// </summary>
         public BasePageViewModel()
         {
-            NavigationBar = new NavigationBarViewModel
-            {
-                Title = "Sample Title",
-                LeftButtonTitle = "Left",
-                RightButtonTitle = "Right",
-                LeftButtonCommand = new SequentialCommand((Action)TestLeftButton),
-                RightButtonCommand = new SequentialCommand(TestRightButton),
-            };
-
-            BottomToolBar = new ToolBarViewModel()
-                .AddItem("Bottom 1", new SequentialCommand(() => { Debug.WriteLine("Hello 1."); }))
-                .AddItem("Bottom 2", new SequentialCommand(() => { Debug.WriteLine("Hello 2."); }))
-                .AddItem("Bottom 3", new SequentialCommand(() => { Debug.WriteLine("Hello 3."); }))
-                .AddItem("Bottom 4", new SequentialCommand(() => { Debug.WriteLine("Hello 4."); }));
-
-            UpperToolBar = new ToolBarViewModel()
-                .AddItem("Upper 1", new SequentialCommand(() => 
-                {
-                    if (NavigationBar.IsVisible)
-                        NavigationBar.Hide();
-                    else
-                        NavigationBar.Show();
-                }))
-                .AddItem("Upper 2", new SequentialCommand(() => 
-                {
-                }));
+            UpperToolBar = new BaseComponentViewModel();
+            BottomToolBar = new BaseComponentViewModel();
+            InitializeNavigationBar();
+            InitializeUpperToolBar();
+            InitializeBottomToolBar();
         }
 
-        public void TestLeftButton()
-        {
-            if (UpperToolBar.IsVisible)
-                UpperToolBar.Hide();
-            else
-                UpperToolBar.Show();
-        }
+        /// <summary>
+        /// Method that initializes NavigationBar on this Page
+        /// <para>
+        /// NOTE: This method is always called from <see cref="BasePageViewModel"/> Constructor
+        /// </para>
+        /// </summary>
+        public abstract void InitializeNavigationBar();
 
-        public async Task TestRightButton(object param)
-        {
-            ShowProgressBar("Downloading...\nPlease Wait!");
-            await Task.Delay(7 * 1000);
-            ShowActivityIndicator("Please Wait!");
-            HideProgressBar();
-            await Task.Delay(5 * 1000);
-            HideActivityIndicator();
-        }
+        /// <summary>
+        /// Method that initializes UpperToolBar on this Page
+        /// <para>
+        /// NOTE: This method is always called from <see cref="BasePageViewModel"/> Constructor
+        /// </para>
+        /// </summary>
+        public abstract void InitializeUpperToolBar();
+
+        /// <summary>
+        /// Method that initializes BottomToolBar on this Page
+        /// <para>
+        /// NOTE: This method is always called from <see cref="BasePageViewModel"/> Constructor
+        /// </para>
+        /// </summary>
+        public abstract void InitializeBottomToolBar();
 
         /// <summary>
         /// Blocks UI clicks

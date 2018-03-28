@@ -4,12 +4,12 @@ using System.Text;
 
 namespace Simple.Xamarin.Framework.core
 {
-    public class ViewComponentViewModel : BaseViewModel
+    public class BaseComponentViewModel : BaseViewModel
     {
         private static bool _isVisible;
 
         /// <summary>
-        /// Indicates if ToolBar is shown
+        /// Indicates if view is shown
         /// </summary>
         public bool IsVisible
         {

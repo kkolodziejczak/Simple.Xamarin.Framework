@@ -2,7 +2,7 @@
 
 namespace Simple.Xamarin.Framework.core
 {
-    public class NavigationBarViewModel : ViewComponentViewModel
+    public class NavigationBarViewModel : BaseComponentViewModel
     {
         /// <summary>
         /// Title of the NavigationBar
