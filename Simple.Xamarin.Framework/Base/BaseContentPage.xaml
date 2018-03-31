@@ -2,7 +2,7 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:local="clr-namespace:Simple.Xamarin.Framework"
-             xmlns:base="clr-namespace:Simple.Xamarin.Framework.Components"
+             xmlns:sxf="clr-namespace:Simple.Xamarin.Framework.Components"
              xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
              ControlTemplate="{StaticResource BaseContentPageTemplate}"
              x:Class="Simple.Xamarin.Framework.BaseContentPage"
@@ -20,11 +20,11 @@
                     </Grid.RowDefinitions>
 
                     <!--  NavigationBar -->
-                    <base:NavigationBar Grid.Row="0"
-                                        IsVisible="{Binding IsVisible}"
-                                        BindingContext="{TemplateBinding BindingContext.NavigationBar}"
-                                        BackgroundColor="{TemplateBinding NavigationBarBackgroundColor}"
-                                        />
+                    <sxf:NavigationBar Grid.Row="0"
+                                       IsVisible="{Binding IsVisible}"
+                                       BindingContext="{TemplateBinding BindingContext.NavigationBar}"
+                                       BackgroundColor="{TemplateBinding NavigationBarBackgroundColor}"
+                                       />
 
                     <!-- Upper ToolBar -->
                     <ContentView Grid.Row="1" 
@@ -38,7 +38,7 @@
                     <Grid Grid.Row="2">
                         <ContentPresenter />
                     </Grid>
-
+                    
                     <!-- Bottom ToolBar -->
                     <ContentView Grid.Row="3"
                                  Content="{TemplateBinding BottomToolBarContent}"
@@ -49,9 +49,9 @@
 
                     <!--#region ProgressBar-->
                     <Grid Grid.Row="1"
-                        Grid.RowSpan="3"
-                        IsVisible="{TemplateBinding BindingContext.DisplayProgressBar}"
-                        >
+                          Grid.RowSpan="3"
+                          IsVisible="{TemplateBinding BindingContext.DisplayProgressBar}"
+                          >
                         <!-- Background -->
                         <Grid BackgroundColor="White"
                               Opacity="0.7"/>
@@ -62,8 +62,9 @@
                             <ProgressBar HeightRequest="40" 
                                          Progress="0.5"
                                          />
-                            <Label Text="{TemplateBinding BindingContext.ProgressBarText}"
-                                    />
+                            <sxf:ExtendedLabel Text="{TemplateBinding BindingContext.ProgressBarText}"
+                                               FontSize="Normal"
+                                               />
                             <Button Text="Cancel"
                                     />
                         </StackLayout>
@@ -78,11 +79,12 @@
                         <StackLayout HorizontalOptions="CenterAndExpand"
                                      VerticalOptions="CenterAndExpand"
                                      >
-                            <ActivityIndicator Color="{DynamicResource Simple_Xamarin_Framework_MainColor}"
+                            <ActivityIndicator Color="{x:Static local:SXF.MainColor}"
                                                IsRunning="True"
                                                />
-                            <Label Text="{TemplateBinding BindingContext.ActivityIndicatorText}"
-                                   />
+                            <sxf:ExtendedLabel Text="{TemplateBinding BindingContext.ActivityIndicatorText}"
+                                               FontSize="Normal"
+                                               />
                         </StackLayout>
                     </Grid>
                     <!--#endregion-->
