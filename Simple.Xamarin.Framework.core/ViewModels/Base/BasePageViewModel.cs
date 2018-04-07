@@ -12,8 +12,24 @@ namespace Simple.Xamarin.Framework.core
     /// </summary>
     public abstract class BasePageViewModel : BaseViewModel
     {
-        private static bool _BackButtonBlocked;
-        private static bool _UIBlocked;
+
+        /// <summary>
+        /// Indicates if UI is blocked
+        /// </summary>
+        public bool UIBlocked
+        {
+            get => GetValue<bool>();
+            private set => SetValue(value);
+        }
+
+        /// <summary>
+        /// Indicates if Hardware back button is blocked
+        /// </summary>
+        public bool BackButtonBlocked
+        {
+            get => GetValue<bool>();
+            private set => SetValue(value);
+        }
 
         /// <summary>
         /// ViewModel that represents how NavigationBar will be displayed on this page
@@ -31,12 +47,35 @@ namespace Simple.Xamarin.Framework.core
         public BaseComponentViewModel UpperToolBar { get; set; }
 
         /// <summary>
+        /// ViewModel that represents how ActivityIndicator will be displayed on this page
+        /// </summary>
+        public ActivityIndicatorViewModel ActivityIndicator { get; set; }
+
+        /// <summary>
+        /// ViewModel that represents how ProgressBar will be displayed on this page
+        /// </summary>
+        public ProgressBarViewModel ProgressBar { get; set; }
+
+        /// <summary>
         /// Base Constructor
         /// </summary>
         public BasePageViewModel()
         {
             UpperToolBar = new BaseComponentViewModel();
             BottomToolBar = new BaseComponentViewModel();
+            ActivityIndicator = new ActivityIndicatorViewModel();
+            ActivityIndicator.OnShow += () => BlockUI();
+            ActivityIndicator.OnHide += () => UnblockUI();
+            ProgressBar = new ProgressBarViewModel();
+
+            Initialize();
+        }
+
+        /// <summary>
+        /// Initializes Page
+        /// </summary>
+        private void Initialize()
+        {
             InitializeNavigationBar();
             InitializeUpperToolBar();
             InitializeBottomToolBar();
@@ -72,8 +111,10 @@ namespace Simple.Xamarin.Framework.core
         public void BlockUI(bool withHardwareBackButton = true)
         {
             if (withHardwareBackButton)
-                _BackButtonBlocked = true;
-            _UIBlocked = true;
+            {
+                BackButtonBlocked = true;
+            }
+            UIBlocked = true;
         }
 
         /// <summary>
@@ -83,8 +124,10 @@ namespace Simple.Xamarin.Framework.core
         public void UnblockUI(bool withHardwareBackButton = true)
         {
             if (withHardwareBackButton)
-                _BackButtonBlocked = false;
-            _UIBlocked = false;
+            {
+                BackButtonBlocked = false;
+            }
+            UIBlocked = false;
         }
 
         /// <summary>
@@ -93,104 +136,13 @@ namespace Simple.Xamarin.Framework.core
         /// <returns><see cref="true"/> if backButton is blocked!</returns>
         public bool OnBackButtonPressed()
         {
-            if (_BackButtonBlocked)
+            if (BackButtonBlocked)
             {
-                Debug.WriteLine("BackButton is Blocked!");
+                Debug.WriteLine("[SXF] BackButton is Blocked!");
                 return true;
             }
             return false;
         }
-
-        #region ActivityIndicator
-
-        private static bool _displayActivityIndicator;
-        public bool DisplayActivityIndicator
-        {
-            get => _displayActivityIndicator;
-            set
-            {
-                _displayActivityIndicator = value;
-                OnPropertyChanged();
-            }
-        }
-
-        private static string _activityIndicatorText;
-        public string ActivityIndicatorText
-        {
-            get => _activityIndicatorText;
-            set
-            {
-                _activityIndicatorText = value;
-                OnPropertyChanged();
-            }
-        }
-
-        public void ShowActivityIndicator(string text)
-        {
-            // Block UI
-            BlockUI();
-
-            // Setup 
-            ActivityIndicatorText = text;
-
-            // Notify about change
-            DisplayActivityIndicator = true;
-        }
-
-        public void HideActivityIndicator()
-        {
-            // UnblockUI and hide ActivityIndicator
-            DisplayActivityIndicator = false;
-            UnblockUI();
-        }
-
-        #endregion
-
-        #region ProgressBar
-
-        private static bool _displayProgressBar;
-        public bool DisplayProgressBar
-        {
-            get => _displayProgressBar;
-            set
-            {
-                _displayProgressBar = value;
-                OnPropertyChanged();
-            }
-        }
-
-        private static string _progressBarText;
-        public string ProgressBarText
-        {
-            get => _progressBarText;
-            set
-            {
-                _progressBarText = value;
-                OnPropertyChanged();
-            }
-        }
-
-
-        public void ShowProgressBar(string text)
-        {
-            // Block UI
-            BlockUI();
-
-            // Set text
-            ProgressBarText = text;
-
-            // Notify about change
-            DisplayProgressBar = true;
-        }
-
-        public void HideProgressBar()
-        {
-            // UnblockUI and hide ActivityIndicator
-            DisplayProgressBar = false;
-            UnblockUI();
-        }
-
-        #endregion
 
     }
 }

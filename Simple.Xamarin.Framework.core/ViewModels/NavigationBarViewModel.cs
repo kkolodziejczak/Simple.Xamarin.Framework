@@ -29,12 +29,5 @@ namespace Simple.Xamarin.Framework.core
         /// </summary>
         public ICommand RightButtonCommand { get; set; }
 
-        /// <summary>
-        /// Default constructor
-        /// </summary>
-        public NavigationBarViewModel()
-        {
-            Show();
-        }
     }
 }

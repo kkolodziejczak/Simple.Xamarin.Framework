@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:sxf="clr-namespace:Simple.Xamarin.Framework.Components"
+             xmlns:local="clr-namespace:Simple.Xamarin.Framework"
+             x:Class="Simple.Xamarin.Framework.Components.ActivityIndicator">
+    <StackLayout HorizontalOptions="Center"
+                 VerticalOptions="Center">
+        <ActivityIndicator Color="{x:Static local:SXF.MainColor}"
+                           IsRunning="True"
+                           />
+        <sxf:ExtendedLabel Text="{Binding Text}"
+                           FontSize="Normal"
+                           HorizontalOptions="Center"
+                           />
+    </StackLayout>
+</ContentView>
