@@ -1,0 +1,48 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+using Xamarin.Forms;
+using Xamarin.Forms.Xaml;
+
+namespace Simple.Xamarin.Framework.Components
+{
+    [XamlCompilation(XamlCompilationOptions.Compile)]
+    public partial class ActivityIndicator : ContentView
+    {
+        public ActivityIndicator()
+        {
+            InitializeComponent();
+        }
+
+        public static readonly BindableProperty TextProperty =
+            BindableProperty.Create("Text", typeof(string), typeof(ActivityIndicator), default(string));
+
+        /// <summary>
+        /// Text that will be displayed above ActivityIndicator
+        /// </summary>
+        public string Text
+        {
+            get => (string)GetValue(TextProperty);
+            set => SetValue(TextProperty, value);
+        }
+
+        public static readonly BindableProperty IsRunningProperty =
+            BindableProperty.Create("IsRunning", typeof(bool), typeof(ActivityIndicator), default(bool), propertyChanged: (b, o, n) =>
+            {
+               
+            });
+
+        /// <summary>
+        /// Indicate if ActivityIndicator is running
+        /// </summary>
+        public bool IsRunning
+        {
+            get => (bool)GetValue(IsRunningProperty);
+            set => SetValue(IsRunningProperty, value);
+        }
+
+    }
+}

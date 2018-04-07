@@ -48,46 +48,35 @@
                                  />
 
                     <!--#region ProgressBar-->
-                    <Grid Grid.Row="1"
-                          Grid.RowSpan="3"
-                          IsVisible="{TemplateBinding BindingContext.DisplayProgressBar}"
-                          >
+                    <sxf:ExtendedGrid Grid.Row="1"
+                                      Grid.RowSpan="3"
+                                      IsVisible="{TemplateBinding BindingContext.DisplayProgressBar}"
+                                      >
                         <!-- Background -->
-                        <Grid BackgroundColor="White"
-                              Opacity="0.7"/>
+                        <sxf:ExtendedGrid BackgroundColor="White"
+                                          Opacity="0.7"/>
                         <!-- ProgressBar elements -->
-                        <StackLayout HorizontalOptions="CenterAndExpand"
-                                     VerticalOptions="CenterAndExpand"
-                                     >
-                            <ProgressBar HeightRequest="40" 
+                        <sxf:ExtendedStackLayout>
+                            <ProgressBar HeightRequest="40"
                                          Progress="0.5"
                                          />
                             <sxf:ExtendedLabel Text="{TemplateBinding BindingContext.ProgressBarText}"
-                                               FontSize="Normal"
+                                               FontSize="Large"
                                                />
                             <Button Text="Cancel"
                                     />
-                        </StackLayout>
-                    </Grid>
+                        </sxf:ExtendedStackLayout>
+                    </sxf:ExtendedGrid>
                     <!--#endregion-->
 
-                    <!--#region ActivityIndicator-->
-                    <Grid BackgroundColor="White"
-                          Grid.RowSpan="4"
-                          IsVisible="{TemplateBinding BindingContext.DisplayActivityIndicator}"
-                          >
-                        <StackLayout HorizontalOptions="CenterAndExpand"
-                                     VerticalOptions="CenterAndExpand"
-                                     >
-                            <ActivityIndicator Color="{x:Static local:SXF.MainColor}"
-                                               IsRunning="True"
-                                               />
-                            <sxf:ExtendedLabel Text="{TemplateBinding BindingContext.ActivityIndicatorText}"
-                                               FontSize="Normal"
-                                               />
-                        </StackLayout>
-                    </Grid>
-                    <!--#endregion-->
+                    <!-- ActivityIndicator -->
+                    <!--<sxf:ActivityIndicator Grid.RowSpan="4"
+                                           BackgroundColor="White"
+                                           Text="{Binding Text}"
+                                           IsVisible="{Binding IsVisible}"
+                                           IsRunning="{Binding IsRunning}"
+                                           BindingContext="{TemplateBinding BindingContext.ActivityIndicator}"
+                                           />-->
 
                 </Grid>
             </ControlTemplate>

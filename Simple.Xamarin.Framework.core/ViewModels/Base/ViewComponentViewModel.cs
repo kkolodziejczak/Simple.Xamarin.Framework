@@ -9,6 +9,26 @@ namespace Simple.Xamarin.Framework.core
         private static bool _isVisible;
 
         /// <summary>
+        /// Event that will be fired before <see cref="BaseComponentViewModel"/> is shown
+        /// </summary>
+        public event Action BeforeShow = () => { };
+
+        /// <summary>
+        /// Event that will be fired after <see cref="BaseComponentViewModel"/> is shown
+        /// </summary>
+        public event Action AfterShow = () => { };
+
+        /// <summary>
+        /// Event that will be fired before <see cref="BaseComponentViewModel"/> is hidden
+        /// </summary>
+        public event Action BeforeHide = () => { };
+
+        /// <summary>
+        /// Event that will be fired after <see cref="BaseComponentViewModel"/> is hidden
+        /// </summary>
+        public event Action AfterHide = () => { };
+
+        /// <summary>
         /// Indicates if view is shown
         /// </summary>
         public bool IsVisible
@@ -26,7 +46,9 @@ namespace Simple.Xamarin.Framework.core
         /// </summary>
         public void Show()
         {
+            BeforeShow();
             IsVisible = true;
+            AfterShow();
         }
 
         /// <summary>
@@ -34,7 +56,9 @@ namespace Simple.Xamarin.Framework.core
         /// </summary>
         public void Hide()
         {
+            BeforeHide();
             IsVisible = false;
+            AfterHide();
         }
     }
 }

@@ -23,7 +23,7 @@
 
         <sxf:ExtendedLabel Grid.Column="0"
                            FontSize="Normal"
-                           Padding="xSmall, Small"
+                           Padding="Normal"
                            Text="{Binding LeftButtonTitle}"
                            TapCommand="{Binding LeftButtonCommand}"
                            />
@@ -31,12 +31,13 @@
         <sxf:ExtendedLabel Grid.Column="0"
                            Grid.ColumnSpan="3"
                            FontSize="Large"
+                           Padding="xSmall"
                            Text="{Binding Title}"
                            />
 
         <sxf:ExtendedLabel Grid.Column="2"
                            FontSize="Normal"
-                           Padding="xSmall, Small"
+                           Padding="Normal"
                            Text="{Binding RightButtonTitle}"
                            TapCommand="{Binding RightButtonCommand}"
                            />

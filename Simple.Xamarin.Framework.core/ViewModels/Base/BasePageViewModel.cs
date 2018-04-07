@@ -31,12 +31,20 @@ namespace Simple.Xamarin.Framework.core
         public BaseComponentViewModel UpperToolBar { get; set; }
 
         /// <summary>
+        /// ViewModel that represents how ActivityIndicator will be displayed on this page
+        /// </summary>
+        public ActivityIndicatorViewModel ActivityIndicator { get; set; }
+
+        /// <summary>
         /// Base Constructor
         /// </summary>
         public BasePageViewModel()
         {
             UpperToolBar = new BaseComponentViewModel();
             BottomToolBar = new BaseComponentViewModel();
+            ActivityIndicator = new ActivityIndicatorViewModel();
+            ActivityIndicator.BeforeShow += () => BlockUI();
+            ActivityIndicator.BeforeHide += () => UnblockUI();
             InitializeNavigationBar();
             InitializeUpperToolBar();
             InitializeBottomToolBar();
@@ -95,56 +103,11 @@ namespace Simple.Xamarin.Framework.core
         {
             if (_BackButtonBlocked)
             {
-                Debug.WriteLine("BackButton is Blocked!");
+                Debug.WriteLine("[SXF] BackButton is Blocked!");
                 return true;
             }
             return false;
         }
-
-        #region ActivityIndicator
-
-        private static bool _displayActivityIndicator;
-        public bool DisplayActivityIndicator
-        {
-            get => _displayActivityIndicator;
-            set
-            {
-                _displayActivityIndicator = value;
-                OnPropertyChanged();
-            }
-        }
-
-        private static string _activityIndicatorText;
-        public string ActivityIndicatorText
-        {
-            get => _activityIndicatorText;
-            set
-            {
-                _activityIndicatorText = value;
-                OnPropertyChanged();
-            }
-        }
-
-        public void ShowActivityIndicator(string text)
-        {
-            // Block UI
-            BlockUI();
-
-            // Setup 
-            ActivityIndicatorText = text;
-
-            // Notify about change
-            DisplayActivityIndicator = true;
-        }
-
-        public void HideActivityIndicator()
-        {
-            // UnblockUI and hide ActivityIndicator
-            DisplayActivityIndicator = false;
-            UnblockUI();
-        }
-
-        #endregion
 
         #region ProgressBar
 

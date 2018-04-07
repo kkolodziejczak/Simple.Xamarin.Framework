@@ -56,28 +56,30 @@ namespace Simple.Xamarin.Framework
         private static double GetSize(ExetendedNamedSize size, bool font)
         {
             var baseunit = font ? DefaultFontSize : DefaultUnitSize;
+            double baseSpacing = Device.GetNamedSize(NamedSize.Large, typeof(Label)) - Device.GetNamedSize(NamedSize.Medium, typeof(Label));
+            var unitSpacing = font ? baseSpacing : DefaultUnitSize/2;
             switch (size)
             {
                 case ExetendedNamedSize.Default:
                     return baseunit;
                 case ExetendedNamedSize.XSmall:
-                    return baseunit * 0.25;
+                    return baseunit - unitSpacing * 2;
                 case ExetendedNamedSize.xSmall:
-                    return baseunit * 0.5;
+                    return baseunit - unitSpacing * 1.5;
                 case ExetendedNamedSize.Small:
-                    return baseunit * 0.75;
+                    return baseunit - unitSpacing;
                 case ExetendedNamedSize.Normal:
                     return baseunit;
                 case ExetendedNamedSize.Large:
-                    return baseunit + baseunit * 0.25;
+                    return baseunit + unitSpacing;
                 case ExetendedNamedSize.xLarge:
-                    return baseunit + baseunit * 0.5;
+                    return baseunit + unitSpacing * 1.5;
                 case ExetendedNamedSize.XLarge:
-                    return baseunit + baseunit * 0.75;
+                    return baseunit + unitSpacing * 2;
                 case ExetendedNamedSize.xxLarge:
-                    return baseunit * 2;
+                    return baseunit + unitSpacing * 2.5;
                 case ExetendedNamedSize.XXLarge:
-                    return baseunit + baseunit * 1.25;
+                    return baseunit + unitSpacing * 3;
                 case ExetendedNamedSize.Zero:
                     return 0;
                 default:
