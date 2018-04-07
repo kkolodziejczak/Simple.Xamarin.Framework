@@ -4,11 +4,14 @@ namespace Simple.Xamarin.Framework.core
 {
     public class ActivityIndicatorViewModel : BaseComponentViewModel
     {
-
-        public bool IsRunning { get; set; }
-
-
-        public string Text { get; set; }
+        /// <summary>
+        /// Text that is displayed
+        /// </summary>
+        public string Text
+        {
+            get => GetValue<string>();
+            set => SetValue(value);
+        }
 
         /// <summary>
         /// Displays ActivityIndicator on the screen

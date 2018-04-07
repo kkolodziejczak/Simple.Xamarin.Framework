@@ -18,13 +18,6 @@ namespace Simple.Xamarin.Framework.Components
         [Obsolete("Use of MinimumHeight is forbidden.", true)]
         public new static readonly BindableProperty MinimumHeightRequest;
 
-        public ExtendedStackLayout()
-        {
-            this.ChildAdded += AlignChild;
-            HorizontalOptions = LayoutOptions.Center;
-            VerticalOptions = LayoutOptions.Start;
-        }
-
         #region Common Properties
 
         public new static readonly BindableProperty HorizontalOptionsProperty =
@@ -160,28 +153,5 @@ namespace Simple.Xamarin.Framework.Components
 
         #endregion
         
-        #region Helpers
-
-        private static void AlignChild(object sender, ElementEventArgs e)
-        {
-            if (sender is StackLayout layout)
-            {
-                for(var i = 0; i < layout.Children.Count; i++)
-                {
-                    if (layout.Children[i] is ExtendedLabel label)
-                    {
-                        if (i == 0)
-                        {
-                            label.HorizontalOptions = _horizontalOptions;
-                            label.VerticalOptions = _verticalOptions;
-                            continue;
-                        }
-                        label.HorizontalOptions = _horizontalOptions;
-                    }
-                }
-            }
-        } 
-
-        #endregion
     }
 }

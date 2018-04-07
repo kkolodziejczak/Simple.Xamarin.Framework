@@ -11,6 +11,7 @@
                            />
         <sxf:ExtendedLabel Text="{Binding Text}"
                            FontSize="Normal"
+                           HorizontalOptions="Center"
                            />
     </StackLayout>
 </ContentView>

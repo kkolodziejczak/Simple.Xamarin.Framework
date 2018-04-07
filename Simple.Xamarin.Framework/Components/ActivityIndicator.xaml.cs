@@ -29,20 +29,5 @@ namespace Simple.Xamarin.Framework.Components
             set => SetValue(TextProperty, value);
         }
 
-        public static readonly BindableProperty IsRunningProperty =
-            BindableProperty.Create("IsRunning", typeof(bool), typeof(ActivityIndicator), default(bool), propertyChanged: (b, o, n) =>
-            {
-               
-            });
-
-        /// <summary>
-        /// Indicate if ActivityIndicator is running
-        /// </summary>
-        public bool IsRunning
-        {
-            get => (bool)GetValue(IsRunningProperty);
-            set => SetValue(IsRunningProperty, value);
-        }
-
     }
 }
