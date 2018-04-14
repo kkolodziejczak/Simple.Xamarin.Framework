@@ -14,18 +14,6 @@ namespace Simple.Xamarin.Framework
             BindingContext = this;
         }
 
-        public static readonly BindableProperty NavigationBarBackgroundColorProperty =
-            BindableProperty.Create("NavigationBarBackgroundColor", typeof(Color), typeof(BaseContentPage), default(Color));
-
-        /// <summary>
-        /// NavigationBar Background color
-        /// </summary>
-        public Color NavigationBarBackgroundColor
-        {
-            get => (Color)GetValue(NavigationBarBackgroundColorProperty);
-            set => SetValue(NavigationBarBackgroundColorProperty, value);
-        }
-
         public static readonly BindableProperty BottomToolBarBackgroundColorProperty =
             BindableProperty.Create("BottomToolBarBackgroundColor", typeof(Color), typeof(BaseContentPage), default(Color));
 

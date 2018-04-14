@@ -3,11 +3,11 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:sxf="clr-namespace:Simple.Xamarin.Framework.Components"
              xmlns:local="clr-namespace:Simple.Xamarin.Framework"
-             x:Class="Simple.Xamarin.Framework.Components.ProgressBar">
+             x:Class="Simple.Xamarin.Framework.ProgressBar">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="1*"/>
-            <ColumnDefinition Width="3*"/>
+            <ColumnDefinition Width="6*"/>
             <ColumnDefinition Width="1*"/>
         </Grid.ColumnDefinitions>
         
@@ -36,22 +36,21 @@
                          />
                 
                 <!-- ProgressBar message Text -->
-                <sxf:ExtendedLabel Text="{Binding NumberText}"
-                                   FontSize="Normal"
-                                   HorizontalTextAlignment="Center"
-                                   HorizontalOptions="CenterAndExpand"
-                                   VerticalOptions="CenterAndExpand"
-                                   TextColor="{DynamicResource SXF_ProgressBar_IndicatorTextColor}"
-                                   />
+                <local:ExtendedLabel Text="{Binding NumberText}"
+                                     FontSize="Normal"
+                                     HorizontalTextAlignment="Center"
+                                     HorizontalOptions="CenterAndExpand"
+                                     VerticalOptions="CenterAndExpand"
+                                     TextColor="{DynamicResource SXF_ProgressBar_IndicatorTextColor}"
+                                     />
             </Grid>
 
             <!-- ProgressBar message Text -->
-            <sxf:ExtendedLabel Text="{Binding Text}"
-                               FontSize="Normal"
-                               Margin="Small"
-                               HorizontalTextAlignment="Center"
-                               HorizontalOptions="CenterAndExpand"
-                               />
+            <local:ExtendedLabel Text="{Binding Text}"
+                                 FontSize="Normal"
+                                 Margin="Small"
+                                 HorizontalOptions="CenterAndExpand"
+                                 />
             
             <!-- ProgressBar Cancel Button -->
             <Button Text="Cancel"

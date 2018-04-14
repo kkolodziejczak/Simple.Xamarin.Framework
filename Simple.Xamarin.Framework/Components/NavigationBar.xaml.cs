@@ -2,7 +2,7 @@
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
-namespace Simple.Xamarin.Framework.Components
+namespace Simple.Xamarin.Framework
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class NavigationBar : ContentView

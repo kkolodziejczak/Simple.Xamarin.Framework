@@ -5,7 +5,7 @@ using System.Text;
 using System.Windows.Input;
 using Xamarin.Forms;
 
-namespace Simple.Xamarin.Framework.Components
+namespace Simple.Xamarin.Framework
 {
     public class ExtendedStackLayout : StackLayout
     {
@@ -21,19 +21,7 @@ namespace Simple.Xamarin.Framework.Components
         #region Common Properties
 
         public new static readonly BindableProperty HorizontalOptionsProperty =
-            BindableProperty.Create(nameof(HorizontalOptions), typeof(LayoutOptions), typeof(ExtendedLabel), LayoutOptions.CenterAndExpand, propertyChanged: (b, o, n) =>
-            {
-                if (b is StackLayout layout)
-                {
-                    if (n is LayoutOptions layoutOptions)
-                    {
-                        foreach(var child in layout.Children)
-                        {
-                            child.HorizontalOptions = layoutOptions;
-                        }
-                    }
-                }
-            });
+            BindableProperty.Create(nameof(HorizontalOptions), typeof(LayoutOptions), typeof(ExtendedLabel), LayoutOptions.Start);
 
         private static LayoutOptions _horizontalOptions;
         public new LayoutOptions HorizontalOptions
@@ -47,19 +35,7 @@ namespace Simple.Xamarin.Framework.Components
         }
 
         public new static readonly BindableProperty VerticalOptionsProperty =
-            BindableProperty.Create(nameof(VerticalOptions), typeof(LayoutOptions), typeof(ExtendedLabel), LayoutOptions.CenterAndExpand, propertyChanged: (b, o, n) =>
-            {
-                if (b is StackLayout layout)
-                {
-                    if (n is LayoutOptions layoutOptions)
-                    {
-                        foreach (var child in layout.Children)
-                        {
-                            child.HorizontalOptions = layoutOptions;
-                        }
-                    }
-                }
-            });
+            BindableProperty.Create(nameof(VerticalOptions), typeof(LayoutOptions), typeof(ExtendedLabel), LayoutOptions.StartAndExpand);
 
         private static LayoutOptions _verticalOptions;
         public new LayoutOptions VerticalOptions
@@ -71,8 +47,6 @@ namespace Simple.Xamarin.Framework.Components
                 _verticalOptions = value;
             }
         }
-
-        
 
         public new static readonly BindableProperty MarginProperty =
            BindableProperty.Create(nameof(Margin), typeof(NamedThickness), typeof(ExtendedLabel), default(NamedThickness), propertyChanged: (b, o, n) =>
@@ -152,6 +126,6 @@ namespace Simple.Xamarin.Framework.Components
         }
 
         #endregion
-        
+
     }
 }
