@@ -5,7 +5,7 @@ using System.Text;
 using System.Windows.Input;
 using Xamarin.Forms;
 
-namespace Simple.Xamarin.Framework.Components
+namespace Simple.Xamarin.Framework
 {
     public class ExtendedGrid : Grid
     {

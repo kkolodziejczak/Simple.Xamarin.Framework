@@ -34,27 +34,27 @@ namespace Simple.Xamarin.Framework.core
         /// <summary>
         /// ViewModel that represents how NavigationBar will be displayed on this page
         /// </summary>
-        public NavigationBarViewModel NavigationBar { get; set; }
+        public NavigationBarViewModel NavigationBar { get; protected set; }
 
         /// <summary>
         /// ViewModel that represents how BottomToolbar will be displayed on this page
         /// </summary>
-        public BaseComponentViewModel BottomToolBar { get; set; }
+        public BaseComponentViewModel BottomToolBar { get; protected set; }
 
         /// <summary>
         /// ViewModel that represents how UpperToolbar will be displayed on this page
         /// </summary>
-        public BaseComponentViewModel UpperToolBar { get; set; }
+        public BaseComponentViewModel UpperToolBar { get; protected set; }
 
         /// <summary>
         /// ViewModel that represents how ActivityIndicator will be displayed on this page
         /// </summary>
-        public ActivityIndicatorViewModel ActivityIndicator { get; set; }
+        public ActivityIndicatorViewModel ActivityIndicator { get; protected set; }
 
         /// <summary>
         /// ViewModel that represents how ProgressBar will be displayed on this page
         /// </summary>
-        public ProgressBarViewModel ProgressBar { get; set; }
+        public ProgressBarViewModel ProgressBar { get; protected set; }
 
         /// <summary>
         /// Base Constructor

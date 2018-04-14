@@ -3,23 +3,34 @@ using System.Linq;
 using System.Windows.Input;
 using Xamarin.Forms;
 
-namespace Simple.Xamarin.Framework.Components
+namespace Simple.Xamarin.Framework
 {
 
-    public class ExtendedLabel : Grid
+    public class ExtendedLabel : StackLayout
     {
         [Obsolete("Use of Width is forbidden.", true)]
-        public new static readonly BindableProperty WidthRequest;
+        public new static readonly BindableProperty WidthRequestProperty;
         [Obsolete("Use of Height is forbidden.", true)]
-        public new static readonly BindableProperty HeightRequest;
+        public new static readonly BindableProperty HeightRequestProperty;
         [Obsolete("Use of MinimumWidth is forbidden.", true)]
-        public new static readonly BindableProperty MinimumWidthRequest;
+        public new static readonly BindableProperty MinimumWidthRequestProperty;
         [Obsolete("Use of MinimumHeight is forbidden.", true)]
-        public new static readonly BindableProperty MinimumHeightRequest;
+        public new static readonly BindableProperty MinimumHeightRequestProperty;
+        [Obsolete("Use of MinimumHeight is forbidden.", true)]
+        public new static readonly BindableProperty SpacingProperty;
 
         public ExtendedLabel()
         {
-            Children.Add(new Label());
+            Spacing = 0;
+            Padding = Margin = new NamedThickness(ExetendedNamedSize.Zero);
+             
+            HorizontalOptions = LayoutOptions.StartAndExpand;
+            VerticalOptions = LayoutOptions.FillAndExpand;
+            Children.Add(new Label
+            {
+                HorizontalOptions = LayoutOptions.CenterAndExpand,
+                VerticalOptions = LayoutOptions.FillAndExpand,
+            });
         }
 
         #region Common Properties
@@ -27,11 +38,11 @@ namespace Simple.Xamarin.Framework.Components
         public new static readonly BindableProperty MarginProperty =
            BindableProperty.Create(nameof(Margin), typeof(NamedThickness), typeof(ExtendedLabel), default(NamedThickness), propertyChanged: (b, o, n) =>
            {
-               if (b is Grid grid)
+               if (b is StackLayout stackLayout)
                {
                    if (n is NamedThickness thickness)
                    {
-                       grid.Margin = new Thickness(thickness.Left, thickness.Top, thickness.Right, thickness.Bottom);
+                       stackLayout.Margin = new Thickness(thickness.Left, thickness.Top, thickness.Right, thickness.Bottom);
                    }
                }
            });
@@ -46,11 +57,11 @@ namespace Simple.Xamarin.Framework.Components
         public new static readonly BindableProperty PaddingProperty =
            BindableProperty.Create(nameof(Padding), typeof(NamedThickness), typeof(ExtendedLabel), default(NamedThickness), propertyChanged: (b, o, n) =>
            {
-               if (b is Grid grid)
+               if (b is StackLayout stackLayout)
                {
                    if (n is NamedThickness thickness)
                    {
-                       grid.Padding = new Thickness(thickness.Left, thickness.Top, thickness.Right, thickness.Bottom);
+                       stackLayout.Padding = new Thickness(thickness.Left, thickness.Top, thickness.Right, thickness.Bottom);
                    }
                }
            });
@@ -61,45 +72,13 @@ namespace Simple.Xamarin.Framework.Components
             set => SetValue(MarginProperty, value);
         }
 
-        public new static readonly BindableProperty HorizontalOptionsProperty =
-            BindableProperty.Create(nameof(HorizontalOptions), typeof(LayoutOptions), typeof(ExtendedLabel), default(LayoutOptions), propertyChanged: (b, o, n) =>
-            {
-                var label = GetLabel(b);
-                if (n is LayoutOptions layoutOptions)
-                {
-                    label.HorizontalOptions = layoutOptions;
-                }
-            });
-
-        public new LayoutOptions HorizontalOptions
-        {
-            get => (LayoutOptions)GetValue(HorizontalOptionsProperty);
-            set => SetValue(HorizontalOptionsProperty, value);
-        }
-
-        public new static readonly BindableProperty VerticalOptionsProperty =
-            BindableProperty.Create(nameof(VerticalOptions), typeof(LayoutOptions), typeof(ExtendedLabel), default(LayoutOptions), propertyChanged: (b, o, n) =>
-            {
-                var label = GetLabel(b);
-                if (n is LayoutOptions layoutOptions)
-                {
-                    label.VerticalOptions = layoutOptions;
-                }
-            });
-
-        public new LayoutOptions VerticalOptions
-        {
-            get => (LayoutOptions)GetValue(VerticalOptionsProperty);
-            set => SetValue(VerticalOptionsProperty, value);
-        }
-
         public static readonly BindableProperty TapCommandProperty =
            BindableProperty.Create(nameof(TapCommand), typeof(ICommand), typeof(ExtendedLabel), default(ICommand), propertyChanged: (b, o, n) =>
            {
-               if (b is Grid grid)
+               if (b is StackLayout stackLayout)
                {
-                   grid.GestureRecognizers.Clear();
-                   grid.GestureRecognizers.Add(new TapGestureRecognizer
+                   stackLayout.GestureRecognizers.Clear();
+                   stackLayout.GestureRecognizers.Add(new TapGestureRecognizer
                    {
                        Command = n as ICommand,
                    });
@@ -118,9 +97,9 @@ namespace Simple.Xamarin.Framework.Components
         public static readonly BindableProperty TapCommandParameterProperty =
            BindableProperty.Create(nameof(TapCommandParameter), typeof(object), typeof(ExtendedLabel), default(object), propertyChanged: (b, o, n) =>
            {
-               if (b is Grid grid)
+               if (b is StackLayout stackLayout)
                {
-                   if (grid.GestureRecognizers.FirstOrDefault() is TapGestureRecognizer gesture)
+                   if (stackLayout.GestureRecognizers.FirstOrDefault() is TapGestureRecognizer gesture)
                        gesture.CommandParameter = n;
                }
            });
@@ -264,7 +243,7 @@ namespace Simple.Xamarin.Framework.Components
 
         private static Label GetLabel(BindableObject bindable)
         {
-            var control = bindable as Grid;
+            var control = bindable as StackLayout;
             if (control.Children.FirstOrDefault() is Label label)
                 return label;
             return null;
