@@ -67,8 +67,18 @@ namespace Simple.Xamarin.Framework.core
             ActivityIndicator.OnShow += () => BlockUI();
             ActivityIndicator.OnHide += () => UnblockUI();
             ProgressBar = new ProgressBarViewModel();
+            ProgressBar.OnShow += () => BlockUI();
+            ProgressBar.OnHide += () => UnblockUI();
 
             Initialize();
+        }
+
+        ~BasePageViewModel()
+        {
+            ActivityIndicator.OnShow -= () => BlockUI();
+            ActivityIndicator.OnHide -= () => UnblockUI();
+            ProgressBar.OnShow -= () => BlockUI();
+            ProgressBar.OnHide -= () => UnblockUI();
         }
 
         /// <summary>

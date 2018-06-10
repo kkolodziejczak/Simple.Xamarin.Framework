@@ -5,7 +5,6 @@ using System.Windows.Input;
 
 namespace Simple.Xamarin.Framework.core
 {
-
     /// <summary>
     /// <see cref="SequentialCommand"/> prevents attempts to invoke multiple commands at the same time.
     /// They will be 
@@ -15,41 +14,85 @@ namespace Simple.Xamarin.Framework.core
         /// <summary>
         /// Function to execute
         /// </summary>
-        private Func<Task> _funcJob;
+        private readonly Func<Task> _funcJob;
 
         /// <summary>
         /// Function to execute with parameter
         /// </summary>
-        private Func<object, Task> _funcJobWithParam;
+        private readonly Func<object, Task> _funcJobWithParam;
+
+        /// <summary>
+        /// Action to execute
+        /// </summary>
+        private readonly Action _action;
 
         /// <summary>
         /// Key that allows to override restrictions
         /// </summary>
-        private bool _rightToRunAlways;
+        private readonly bool _rightToRunAlways;
 
         /// <summary>
-        /// A semaphore to lock the semaphore list
+        /// A semaphore to lock the <see cref="JobLock"/>
         /// </summary>
-        private static SemaphoreSlim SelfLock = new SemaphoreSlim(1, 1);
+        private static readonly SemaphoreSlim Lock = new SemaphoreSlim(1, 1);
+
+        /// <summary>
+        /// A semaphore to lock the job
+        /// </summary>
+        private static SemaphoreSlim JobLock = new SemaphoreSlim(1, 1);
+
+        /// <summary>
+        /// Delay in milliseconds that will be awaited after job is done
+        /// </summary>
+        public double Delay { get; protected set; }
 
         /// <summary>
         /// Occurs when changes occur that affect whether or not the command should execute.
         /// </summary>
         public event EventHandler CanExecuteChanged = (s, e) => { };
 
-        public SequentialCommand(Func<Task> job, bool runAlways = false)
+        public SequentialCommand(Func<Task> job, bool runAlways = false, double delay = 500)
         {
             _funcJob = job;
             _rightToRunAlways = runAlways;
+            Delay = delay;
         }
 
-        public SequentialCommand(Func<object, Task> job, bool runAlways = false)
+        public SequentialCommand(Func<object, Task> job, bool runAlways = false, double delay = 500)
         {
             _funcJobWithParam = job;
             _rightToRunAlways = runAlways;
+            Delay = delay;
         }
 
-        public bool CanExecute(object parameter) => true;
+        public SequentialCommand(Action job, bool runAlways = false, double delay = 500)
+        {
+            _action = job;
+            _rightToRunAlways = runAlways;
+            Delay = delay;
+        }
+
+        /// <summary>
+        /// Returns true if Command can execute
+        /// </summary>
+        /// <param name="parameter"></param>
+        /// <returns></returns>
+        public bool CanExecute(object parameter) 
+        {
+            if (_rightToRunAlways == true)
+            {
+                return true;
+            }
+            try
+            {
+                Lock.Wait();
+                return JobLock.CurrentCount != 0;
+            }
+            finally
+            {
+                Lock.Release();
+            }
+        }
 
         /// <summary>
         /// Execute only one task at the time
@@ -63,13 +106,26 @@ namespace Simple.Xamarin.Framework.core
             }
             else
             {
-                // Check if Job is already running
-                if (SelfLock.CurrentCount == 0)
-                    // if so then return
-                    return;
-
-                // else lock semaphore
-                await SelfLock.WaitAsync();
+                // Critical section to establish if Job can be executed
+                try
+                {
+                    await Lock.WaitAsync();
+                    // Check if Job is already running
+                    if (JobLock.CurrentCount == 0)
+                    {
+                        // if so then return
+                        return;
+                    }
+                    else
+                    {
+                        // else lock semaphore
+                        await JobLock.WaitAsync();
+                    }
+                }
+                finally
+                {
+                    Lock.Release();
+                }
 
                 try
                 {
@@ -78,8 +134,11 @@ namespace Simple.Xamarin.Framework.core
                 }
                 finally
                 {
+                    // Await delay
+                    await Task.Delay(TimeSpan.FromMilliseconds(Delay));
+
                     // Release the semaphore
-                    SelfLock.Release();
+                    JobLock.Release();
                 }
             }
         }
@@ -90,6 +149,7 @@ namespace Simple.Xamarin.Framework.core
         /// <returns></returns>
         private async Task DoTheJob(object parameter)
         {
+            _action?.Invoke();
             if (_funcJob != null)
                 await _funcJob();
             if (_funcJobWithParam != null)

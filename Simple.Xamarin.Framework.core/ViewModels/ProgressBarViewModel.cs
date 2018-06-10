@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Input;
@@ -14,6 +12,8 @@ namespace Simple.Xamarin.Framework.core
         private double _stepSize;
 
         public int NumberOfSteps => _numberOfSteps;
+
+        [DependsOn(nameof(ProgressValue), nameof(_stepSize))]
         public int CurrentStep => (int)(ProgressValue / _stepSize);
 
         public double ProgressValue
@@ -26,6 +26,7 @@ namespace Simple.Xamarin.Framework.core
             }
         }
 
+        [DependsOn(nameof(CurrentStep), nameof(NumberOfSteps))]
         public string NumberText => $"{CurrentStep}/{NumberOfSteps}";
 
         public string Text
@@ -46,10 +47,13 @@ namespace Simple.Xamarin.Framework.core
             _stepSize = 1;
         }
 
-        private async Task CancelProgress()
+        private Task CancelProgress()
         {
-            Cancel();
-            OnCancel();
+            return Task.Run(() =>
+            {
+                Cancel();
+                OnCancel();
+            });
         }
 
         public void OverrideText(string text) => Text = text;
@@ -68,12 +72,18 @@ namespace Simple.Xamarin.Framework.core
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="text"></param>
+        /// <param name="numberOfSteps"></param>
+        /// <exception cref="OperationCanceledException"
+        /// <returns></returns>
         public IProgress Show(string text, int numberOfSteps = 1)
         {
             Text = text;
             SetNumberOfSteps(numberOfSteps);
             ProgressValue = 0;
-            _token = new CancellationTokenSource();
 
             base.Show();
             return this;

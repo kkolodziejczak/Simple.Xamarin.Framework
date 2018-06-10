@@ -9,33 +9,17 @@ using Xamarin.Forms.Xaml;
 
 namespace Simple.Xamarin.Framework
 {
-	[XamlCompilation(XamlCompilationOptions.Compile)]
-	public partial class ProgressBar : ContentView
-	{
-		public ProgressBar ()
-		{
-			InitializeComponent ();
-		}
+    [XamlCompilation(XamlCompilationOptions.Compile)]
+    public partial class ProgressBar : ContentView
+    {
+        public ProgressBar()
+        {
+            InitializeComponent();
+        }
 
         public static readonly BindableProperty TextProperty =
             BindableProperty.Create("Text", typeof(string), typeof(ProgressBar), default(string));
 
-//        , propertyChanged: (b, o, n) =>
-//            {
-//                if (b is ContentView content)
-//                {
-//                    if (content.Content is Grid layout)
-//                    {
-//                        if (layout.Children[1] is StackLayout stackLayout)
-//                        {
-//                            if (stackLayout.Children[1] is ExtendedLabel label)
-//                            {
-//                                label.Text = n as string;
-//                            }
-//}
-//                    }
-//                }
-//            }
 
         /// <summary>
         /// Text that will be displayed above ActivityIndicator
