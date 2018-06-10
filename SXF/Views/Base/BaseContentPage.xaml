@@ -1,0 +1,68 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:SXF"
+             xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
+             ios:Page.UseSafeArea="true"
+             ControlTemplate="{StaticResource BaseContentPageTemplate}"
+             x:Class="SXF.BaseContentPage">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <ControlTemplate x:Key="BaseContentPageTemplate">
+                <Grid BackgroundColor="{TemplateBinding BackgroundColor}">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+
+                    <!--  NavigationBar -->
+                    <local:NavigationBar Grid.Row="0"
+                                         IsVisible="{Binding IsVisible}"
+                                         BindingContext="{TemplateBinding BindingContext.NavigationBar}"
+                                         BackgroundColor="{DynamicResource SXF_NavigationBar_BackgroundColor}"
+                                         />
+
+                    <!-- Upper ToolBar -->
+                    <ContentView Grid.Row="1" 
+                                 Content="{TemplateBinding UpperToolBarContent}"
+                                 IsVisible="{Binding IsVisible}"
+                                 BindingContext="{TemplateBinding BindingContext.UpperToolBar}"
+                                 BackgroundColor="{TemplateBinding UpperToolBarBackgroundColor}"
+                                 />
+
+                    <!-- Content Presenter -->
+                    <Grid Grid.Row="2">
+                        <ContentPresenter />
+                    </Grid>
+
+                    <!-- Bottom ToolBar -->
+                    <ContentView Grid.Row="3"
+                                 Content="{TemplateBinding BottomToolBarContent}"
+                                 IsVisible="{Binding IsVisible}"
+                                 BindingContext="{TemplateBinding BindingContext.BottomToolBar}"
+                                 BackgroundColor="{TemplateBinding BottomToolBarBackgroundColor}"
+                                 />
+
+                    <!-- ProgressBar-->
+                    <local:ProgressBar Grid.Row="1"
+                                       Grid.RowSpan="3"
+                                       Text="{Binding Text}"
+                                       Progress="{Binding ProgressValue}"
+                                       IsVisible="{Binding IsVisible}"
+                                       BindingContext="{TemplateBinding BindingContext.ProgressBar}"/>
+
+                    <!-- ActivityIndicator -->
+                    <local:ActivityIndicator Grid.RowSpan="4"
+                                             BackgroundColor="White"
+                                             Text="{Binding Text}"
+                                             IsVisible="{Binding IsVisible}"
+                                             BindingContext="{TemplateBinding BindingContext.ActivityIndicator}"
+                                             />
+
+                </Grid>
+            </ControlTemplate>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+</ContentPage>

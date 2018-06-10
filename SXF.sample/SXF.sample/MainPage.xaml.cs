@@ -5,9 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 
-namespace SXF.sample
+namespace SXF.Sample
 {
-	public partial class MainPage : ContentPage
+	public partial class MainPage : BaseContentPage<MainPageViewModel>
 	{
 		public MainPage()
 		{

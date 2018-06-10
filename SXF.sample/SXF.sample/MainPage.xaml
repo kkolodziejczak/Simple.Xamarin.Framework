@@ -1,13 +1,13 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:sxf="clr-namespace:Simple.Xamarin.Framework;assembly=Simple.Xamarin.Framework"
-             xmlns:local="clr-namespace:SXF.sample"
-             x:Class="SXF.sample.MainPage">
-
-    <StackLayout>
-        <sxf:ExtendedButton BackgroundColor="Red" TapCommand="{Binding Command}"/>
-        <!-- Place new controls here -->
-    </StackLayout>
-
-</ContentPage>
+<base:BaseContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+                      xmlns:base="clr-namespace:SXF;assembly=SXF"
+                      xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                      xmlns:local="clr-namespace:SXF.Sample"
+                      x:TypeArguments="local:MainPageViewModel"
+                      x:Class="SXF.Sample.MainPage">
+    <base:BaseContentPage.Content>
+        <StackLayout>
+            <!-- Place new controls here -->
+        </StackLayout>
+    </base:BaseContentPage.Content>
+</base:BaseContentPage>

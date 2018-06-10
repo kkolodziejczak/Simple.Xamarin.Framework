@@ -5,7 +5,7 @@ using System.Linq;
 using Foundation;
 using UIKit;
 
-namespace SXF.sample.iOS
+namespace SXF.Sample.iOS
 {
     public class Application
     {

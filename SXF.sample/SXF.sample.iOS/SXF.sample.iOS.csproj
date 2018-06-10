@@ -5,13 +5,13 @@
     <Platform Condition=" '$(Platform)' == '' ">iPhoneSimulator</Platform>
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{943A7163-AB5C-4ADC-8DA6-77DCA1B7BAA2}</ProjectGuid>
+    <ProjectGuid>{86BBC19B-E752-43E6-99EF-34E16D04F074}</ProjectGuid>
     <ProjectTypeGuids>{FEACFBD2-3405-455C-9665-78FE426C6842};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <TemplateGuid>{6143fdea-f3c2-4a09-aafa-6e230626515e}</TemplateGuid>
     <OutputType>Exe</OutputType>
-    <RootNamespace>SXF.sample.iOS</RootNamespace>
+    <RootNamespace>SXF.Sample.iOS</RootNamespace>
     <IPhoneResourcePrefix>Resources</IPhoneResourcePrefix>
-    <AssemblyName>SXF.sample.iOS</AssemblyName>
+    <AssemblyName>SXF.Sample.iOS</AssemblyName>
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
   </PropertyGroup>
@@ -147,13 +147,13 @@
     <Reference Include="Xamarin.iOS" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Xamarin.Forms" Version="3.0.0.446417" />
+    <PackageReference Include="Xamarin.Forms" Version="3.0.0.550146" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
   <ItemGroup>
-    <ProjectReference Include="..\SXF.sample\SXF.sample.csproj">
-      <Project>{21D9F3CB-0BB6-439A-9DB1-C9F9BCD68996}</Project>
-      <Name>SXF.sample</Name>
+    <ProjectReference Include="..\SXF.Sample\SXF.Sample.csproj">
+      <Project>{F5C1596C-8004-450E-A88A-9AA72EF03E75}</Project>
+      <Name>SXF.Sample</Name>
     </ProjectReference>
   </ItemGroup>
 </Project>
